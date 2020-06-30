@@ -1,0 +1,6 @@
+framework module Pods_PhotoramaX {
+  umbrella header "Pods-PhotoramaX-umbrella.h"
+
+  export *
+  module * { export * }
+}

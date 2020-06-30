@@ -1,0 +1,6 @@
+framework module Pods_PhotoramaX_PhotoramaXUITests {
+  umbrella header "Pods-PhotoramaX-PhotoramaXUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
