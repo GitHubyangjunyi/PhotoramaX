@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1C1521702451121C00ED221C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C15216F2451121C00ED221C /* AppDelegate.swift */; };
 		1C1521722451121C00ED221C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1521712451121C00ED221C /* SceneDelegate.swift */; };
-		1C1521742451121C00ED221C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1521732451121C00ED221C /* ViewController.swift */; };
 		1C1521772451121C00ED221C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C1521752451121C00ED221C /* Main.storyboard */; };
 		1C1521792451121E00ED221C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C1521782451121E00ED221C /* Assets.xcassets */; };
 		1C15217C2451121E00ED221C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C15217A2451121E00ED221C /* LaunchScreen.storyboard */; };
@@ -53,7 +52,6 @@
 		1C15216C2451121C00ED221C /* AI Recognition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AI Recognition.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C15216F2451121C00ED221C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C1521712451121C00ED221C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1C1521732451121C00ED221C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1C1521762451121C00ED221C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C1521782451121E00ED221C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C15217B2451121E00ED221C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -118,12 +116,12 @@
 		1C1521632451121C00ED221C = {
 			isa = PBXGroup;
 			children = (
+				B5C5BC125C826A15B4AE553D /* Frameworks */,
 				1C15216E2451121C00ED221C /* PhotoramaX */,
 				1C1521852451121E00ED221C /* PhotoramaXTests */,
 				1C1521902451121E00ED221C /* PhotoramaXUITests */,
-				1C15216D2451121C00ED221C /* Products */,
 				97BEAB0EFEE20361DA12CA35 /* Pods */,
-				B5C5BC125C826A15B4AE553D /* Frameworks */,
+				1C15216D2451121C00ED221C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,26 +138,16 @@
 		1C15216E2451121C00ED221C /* PhotoramaX */ = {
 			isa = PBXGroup;
 			children = (
-				1C8A8EA5246A511E005B3BA0 /* ImageClassificationViewController.swift */,
-				1C8A8EA3246A4B21005B3BA0 /* MobileNet.mlmodel */,
-				1C8A8EA1246A4A96005B3BA0 /* CGImagePropertyOrientation+UIImageOrientation.swift */,
-				1C1521AB2451242D00ED221C /* Tool */,
-				1C15216F2451121C00ED221C /* AppDelegate.swift */,
-				1C1521A1245114E800ED221C /* FlickrAPI.swift */,
-				1C1521712451121C00ED221C /* SceneDelegate.swift */,
-				1C1521732451121C00ED221C /* ViewController.swift */,
-				1C1521752451121C00ED221C /* Main.storyboard */,
-				1C1521782451121E00ED221C /* Assets.xcassets */,
-				1C15217A2451121E00ED221C /* LaunchScreen.storyboard */,
 				1C15217D2451121E00ED221C /* Info.plist */,
-				1C15219F2451124800ED221C /* PhotosViewController.swift */,
-				1C1521A324511B0400ED221C /* PhotoStore.swift */,
-				1C1521A52451201700ED221C /* Photo.swift */,
-				1C1521AC2451458500ED221C /* PhotoDataSource.swift */,
-				1C1521AE2451649F00ED221C /* PhotoCollectionViewCell.swift */,
-				1C1521B024517F8800ED221C /* ImageStore.swift */,
-				1C1521B22451839F00ED221C /* PhotoInfoViewController.swift */,
-				1C74A5C0246E460D0060098E /* SettingViewController.swift */,
+				1C15216F2451121C00ED221C /* AppDelegate.swift */,
+				1C1521712451121C00ED221C /* SceneDelegate.swift */,
+				1C1521782451121E00ED221C /* Assets.xcassets */,
+				9D7378CC25CA7DEE001DBBC1 /* Controller */,
+				1C15217A2451121E00ED221C /* LaunchScreen.storyboard */,
+				1C1521752451121C00ED221C /* Main.storyboard */,
+				9D7378D025CA7E24001DBBC1 /* Model */,
+				1C1521AB2451242D00ED221C /* Tool */,
+				9D7378D125CA7E33001DBBC1 /* View */,
 			);
 			path = PhotoramaX;
 			sourceTree = "<group>";
@@ -185,6 +173,8 @@
 		1C1521AB2451242D00ED221C /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				1C8A8EA1246A4A96005B3BA0 /* CGImagePropertyOrientation+UIImageOrientation.swift */,
+				1C1521A1245114E800ED221C /* FlickrAPI.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -200,6 +190,37 @@
 				3E825A7CD889CCEC31530EB0 /* Pods-PhotoramaXTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9D7378CC25CA7DEE001DBBC1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1C15219F2451124800ED221C /* PhotosViewController.swift */,
+				1C1521B22451839F00ED221C /* PhotoInfoViewController.swift */,
+				1C74A5C0246E460D0060098E /* SettingViewController.swift */,
+				1C8A8EA5246A511E005B3BA0 /* ImageClassificationViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9D7378D025CA7E24001DBBC1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1C8A8EA3246A4B21005B3BA0 /* MobileNet.mlmodel */,
+				1C1521A324511B0400ED221C /* PhotoStore.swift */,
+				1C1521A52451201700ED221C /* Photo.swift */,
+				1C1521AC2451458500ED221C /* PhotoDataSource.swift */,
+				1C1521B024517F8800ED221C /* ImageStore.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9D7378D125CA7E33001DBBC1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1C1521AE2451649F00ED221C /* PhotoCollectionViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B5C5BC125C826A15B4AE553D /* Frameworks */ = {
@@ -280,7 +301,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "杨俊艺";
 				TargetAttributes = {
 					1C15216B2451121C00ED221C = {
@@ -452,7 +473,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C1521A62451201700ED221C /* Photo.swift in Sources */,
-				1C1521742451121C00ED221C /* ViewController.swift in Sources */,
 				1C1521A02451124800ED221C /* PhotosViewController.swift in Sources */,
 				1C1521B124517F8800ED221C /* ImageStore.swift in Sources */,
 				1C8A8EA4246A4B21005B3BA0 /* MobileNet.mlmodel in Sources */,
@@ -546,6 +566,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -570,7 +591,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -606,6 +627,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -624,7 +646,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -643,7 +665,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = AUU6KUNPBF;
 				INFOPLIST_FILE = PhotoramaX/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -665,7 +687,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = AUU6KUNPBF;
 				INFOPLIST_FILE = PhotoramaX/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

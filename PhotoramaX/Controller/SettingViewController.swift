@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//设置页视图控制器
 class SettingViewController: UIViewController {
     
 }

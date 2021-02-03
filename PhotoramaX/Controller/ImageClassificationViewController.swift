@@ -10,6 +10,7 @@ import CoreML
 import Vision
 import ImageIO
 
+//自选图片识别视图控制器
 class ImageClassificationViewController: UIViewController {
     // MARK: - IBOutlets
     
@@ -74,7 +75,6 @@ class ImageClassificationViewController: UIViewController {
             return
         }
 
-        
         let photoSourcePicker = UIAlertController()
         let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { [unowned self] _ in
             self.presentPhotoPicker(sourceType: .camera)

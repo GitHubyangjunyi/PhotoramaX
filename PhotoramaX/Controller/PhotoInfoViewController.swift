@@ -11,9 +11,51 @@ import CoreML
 import Vision
 import ImageIO
 
+//图片识别结果视图控制器
 class PhotoInfoViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var classificationLabel: UILabel!
+    
+    var store: PhotoStore!
+    var photo: Photo! {
+        didSet {
+            navigationItem.title = photo.title
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let longTap = UILongPressGestureRecognizer.init(target: self, action: #selector(self.save))
+        self.imageView.addGestureRecognizer(longTap)
+        
+        store.fetchImage(for: photo) { (result) in
+            switch result {
+            case let .Success(image):
+                self.imageView.image = image
+                
+                self.updateClassifications(for: image)
+                
+            case let .Failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    @objc func save() {
+        let title = "Save"
+        let message = "Are you sure?"
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        //取消和保存动作
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "Save", style: .destructive, handler: { (action) -> Void in
+            UIImageWriteToSavedPhotosAlbum(((self.imageView.image ?? UIImage.init(named: "ML.png"))!), nil, nil, nil)
+        })
+        ac.addAction(deleteAction)
+        ac.addAction(cancelAction)
+        //将提示弹窗显示出来
+        self.present(ac, animated: true, completion: nil)
+    }
     
     lazy var classificationRequest: VNCoreMLRequest = {
         do {
@@ -64,51 +106,6 @@ class PhotoInfoViewController: UIViewController {
                 self.classificationLabel.text = "Possible matching classification results:\n" + descriptions.joined(separator: "\n")
             }
         }
-    }
-    
-    
-    
-    var photo: Photo! {
-        didSet {
-            navigationItem.title = photo.title
-        }
-    }
-    var store: PhotoStore!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let longTap = UILongPressGestureRecognizer.init(target: self, action: #selector(self.save))
-        self.imageView.addGestureRecognizer(longTap)
-        
-        
-        store.fetchImage(for: photo) { (result) in
-            switch result {
-            case let .Success(image):
-                self.imageView.image = image
-                
-                self.updateClassifications(for: image)
-                
-            case let .Failure(error):
-                print(error)
-            }
-        }
-    }
-    
-    @objc func save() {
-        
-        let title = "Save"
-        let message = "Are you sure?"
-        let ac = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        //取消和删除动作
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let deleteAction = UIAlertAction(title: "Save", style: .destructive, handler: { (action) -> Void in
-            UIImageWriteToSavedPhotosAlbum(((self.imageView.image ?? UIImage.init(named: "ML.png"))!), nil, nil, nil)
-        })
-        ac.addAction(deleteAction)
-        ac.addAction(cancelAction)
-        //将提示弹窗显示出来
-        self.present(ac, animated: true, completion: nil)
     }
     
 }

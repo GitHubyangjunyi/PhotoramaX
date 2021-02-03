@@ -9,6 +9,7 @@
 import UIKit
 import Gemini
 
+//精选图片视图控制器
 class PhotosViewController: UIViewController {
 
     @IBOutlet var collectionView: GeminiCollectionView!
@@ -18,15 +19,13 @@ class PhotosViewController: UIViewController {
     let photoDataSource = PhotoDataSource()
     var animationEffect = AnimationEffect.cubeAnimation
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.store = PhotoStore()
         collectionView.dataSource = photoDataSource
         collectionView.delegate = self
         collectionView.gemini.cubeAnimation().cubeDegree(90).cornerRadius(75)
-        
-        
         
         store.fetchInterestingPhotos { (PhotoResult) -> Void in
             switch PhotoResult {
@@ -40,24 +39,21 @@ class PhotosViewController: UIViewController {
             self.collectionView.reloadSections(IndexSet(integer: 0))
         }
 
-        
-        //允许弹窗逻辑
+        //相册权限弹窗逻辑
+        //第一次进入App时没有弹过窗所以进行弹窗
         let angent = UserDefaults.standard.bool(forKey: "ACCESS")
-        
-        
         if !angent {
             let privacyAlert = UIAlertController.init(title: "AI Recognition", message: "Our app will read your photos or use the camera to take photos for image recognition, please allow!", preferredStyle: .alert)
 
-            privacyAlert.addAction(UIAlertAction(title: "Allow", style: .default) { [unowned self] _ in
+            privacyAlert.addAction(UIAlertAction(title: "Allow", style: .default) { _ in
                 UserDefaults.standard.set(true, forKey: "ACCESS")
             })
             
-            privacyAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [unowned self] _ in
+            privacyAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
                 UserDefaults.standard.set(false, forKey: "ACCESS")
             })
             present(privacyAlert, animated: false)
         }
-        
         //a little logic problem
         UserDefaults.standard.set(true, forKey: "ACCESS")
         UserDefaults.standard.synchronize()
@@ -65,8 +61,6 @@ class PhotosViewController: UIViewController {
     }
 
     @IBAction func changeEffect(_ sender: UIBarButtonItem) {
-        
-        
         switch self.animationEffect {
         case .cubeAnimation:
             collectionView.gemini.circleRotationAnimation().radius(400).rotateDirection(.clockwise)
@@ -81,14 +75,8 @@ class PhotosViewController: UIViewController {
             collectionView.gemini.cubeAnimation().cubeDegree(90).cornerRadius(75)
             self.animationEffect.toggle()
         }
- 
-        
-        
-        
-        
-        
-        
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "showPhoto"?:
@@ -102,7 +90,6 @@ class PhotosViewController: UIViewController {
             preconditionFailure("exception")
         }
     }
-    
 }
 
 extension PhotosViewController: UICollectionViewDataSource {
@@ -112,13 +99,9 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TestCell", for: indexPath) as! GeminiCell
-        
         self.collectionView.animateCell(cell)
-        
         return cell
     }
-    
-    
 }
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
@@ -151,12 +134,10 @@ extension PhotosViewController: UICollectionViewDelegate {
         //这里的问题是,当UICollectionViewCell显示到屏幕上时照片数据会重新加载,还要实现照片缓存
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: IndexPath.init(item: indexPath.item + 1, section: indexPath.section), at: .centeredVertically, animated: true)
     }
 }
-
 
 enum AnimationEffect {
     case cubeAnimation

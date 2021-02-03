@@ -20,18 +20,19 @@ enum PhotoResult {
 }
 
 enum FlickrError: Error {
-    case invalidJSONData    //无效的json数据
+    case invalidJSONData
 }
 
 struct FlickrAPI {
     private static let baseURLString = "https://api.flickr.com/services/rest"
-    private static let APIKey = "a6d819499131071f158fd740860a5a88"  //APIKey
+    private static let APIKey = "a6d819499131071f158fd740860a5a88"
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }()
     
+    //根据传入的要请求的方法枚举和请求参数字典生成一个请求URL
     private static func flickrURL(method: Method, parameters: [String:String]?) -> URL {
         //1.使用基础URL创建一个URLComponents
         var components = URLComponents(string: baseURLString)!
@@ -48,7 +49,7 @@ struct FlickrAPI {
             queryItems.append(item)
         }
         //3.有额外查询参数就进行添加
-        if let additionalParams = parameters{
+        if let additionalParams = parameters {
             for (key, value) in additionalParams {
                 let item = URLQueryItem(name: key, value: value)
                 queryItems.append(item)
@@ -60,6 +61,7 @@ struct FlickrAPI {
         return components.url!
     }
     
+    //生成目前项目需要用到的特殊的请求URL
     static var interestingPhotosURL: URL {
         return flickrURL(method: .interestingPhotos, parameters: ["extras" : "url_h,date_taken"])
     }
@@ -79,7 +81,8 @@ struct FlickrAPI {
                     finalPhotos.append(photo)
                 }
             }
-            if finalPhotos.isEmpty && !photosArray.isEmpty {
+            //如果解析完的json数据不为空且finalPhotos数组没有photo对象则表示json数据是损坏的
+            if !photosArray.isEmpty && finalPhotos.isEmpty {
                 return .failure(FlickrError.invalidJSONData)
             }
             return .success(finalPhotos)

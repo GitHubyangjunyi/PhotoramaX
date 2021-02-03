@@ -9,7 +9,6 @@
 import UIKit
 
 class Photo {
-    
     let title: String
     var photoID: String
     let remoteURL: URL
