@@ -108,4 +108,16 @@ class PhotoInfoViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "showTags":
+                let navController = segue.destination as! UINavigationController
+                let tagViewController = navController.topViewController as! TagsViewController
+                tagViewController.store = store
+                tagViewController.photo = photo
+            default:
+                preconditionFailure("跳转标识错误")
+        }
+    }
+    
 }

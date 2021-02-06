@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/skywalker/Documents/&#x5b66;&#x4e60;&#x6559;&#x80b2;&#x5de5;&#x4f5c;/PhotoramaX&#x6bd5;&#x4e1a;&#x8bbe;&#x8ba1;/PhotoramaX/PhotoramaX/Model/CoreData/Photo+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:PhotoramaX.xcodeproj">
    </FileRef>
    <FileRef
