@@ -9,6 +9,7 @@
 import UIKit
 
 //集合视图的数据源可以理解成商店的仓库
+//将控制器的数据源逻辑抽离出来成为一个单独的类
 class PhotoDataSource: NSObject, UICollectionViewDataSource {
 
     var photos = [Photo]()

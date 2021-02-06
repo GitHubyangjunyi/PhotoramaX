@@ -21,26 +21,37 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.store = PhotoStore()
+        
+        // 先加载本地的旧照片避免网络情况较差时白屏
+        updateDataSource()
+        
         collectionView.dataSource = photoDataSource
-        collectionView.delegate = self
+        collectionView.delegate = self // 联系更紧密的操作可以交给视图控制器而将数据源分离出去
         collectionView.gemini.cubeAnimation().cubeDegree(90).cornerRadius(75)
         
-        store.fetchInterestingPhotos { (PhotoResult) -> Void in
-            switch PhotoResult {
+        store.fetchInterestingPhotos { (PhotosResult) -> Void in
+            self.updateDataSource()
+        }
+
+        showPrivacyAlert()
+    }
+    
+    func updateDataSource() {
+        store.fetchAllPhotos { (photoResult) in
+            switch photoResult {
                 case let .success(photos):
-                    print("\(photos.count)")
                     self.photoDataSource.photos = photos
-                case let .failure(error):
-                    print("\(error)")
+                case .failure:
                     self.photoDataSource.photos.removeAll()
             }
             self.collectionView.reloadSections(IndexSet(integer: 0))
         }
-
-        //相册权限弹窗逻辑
-        //第一次进入App时没有弹过窗所以进行弹窗
+    }
+    
+    // 相册权限弹窗逻辑
+    func showPrivacyAlert() {
+        // 第一次进入App时没有弹过窗所以进行弹窗
         let angent = UserDefaults.standard.bool(forKey: "ACCESS")
         if !angent {
             let privacyAlert = UIAlertController.init(title: "AI Recognition", message: "Our app will read your photos or use the camera to take photos for image recognition, please allow!", preferredStyle: .alert)
@@ -57,7 +68,6 @@ class PhotosViewController: UIViewController {
         //a little logic problem
         UserDefaults.standard.set(true, forKey: "ACCESS")
         UserDefaults.standard.synchronize()
-        
     }
 
     @IBAction func changeEffect(_ sender: UIBarButtonItem) {
@@ -111,15 +121,12 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension PhotosViewController: UICollectionViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.collectionView.animateVisibleCells()
-    }
-    
+    // 在即将展示某个Cell时再去下载照片数据
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let photo = photoDataSource.photos[indexPath.row]
-        //根据photo模型的URL去下载对应的照片
+        // 根据photo模型的URL去下载对应的照片
         store.fetchImage(for: photo) { (result) -> Void in
-            //照片的indexPath可能会在请求前后发生变化,因此需要获取最新的indexPath
+            // 照片的indexPath可能会在请求前后发生变化,因此需要获取最新的indexPath
             guard let photoIndex = self.photoDataSource.photos.firstIndex(of: photo),
                 case let .Success(image) = result else {
                     return
@@ -131,9 +138,14 @@ extension PhotosViewController: UICollectionViewDelegate {
                 self.collectionView.animateCell(cell)
             }
         }
-        //这里的问题是,当UICollectionViewCell显示到屏幕上时照片数据会重新加载,还要实现照片缓存
+        // 当UICollectionViewCell显示到屏幕上时照片数据会重新加载所以实现了照片缓存,如果缓存中有就不用再次发起网络请求
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.collectionView.animateVisibleCells()
+    }
+    
+    // 自动切换到下一个Cell
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: IndexPath.init(item: indexPath.item + 1, section: indexPath.section), at: .centeredVertically, animated: true)
     }
